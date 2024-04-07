@@ -23,6 +23,12 @@ mkdir benchmarks
 ln -s <benchmark> benchmarks/mlcad2023_v2
 ~~~
 
+Note that in this benchmark, some bugs in the benchmarks metioned in FAQ <https://github.com/TILOS-AI-Institute/MLCAD-2023-FPGA-Macro-Placement-Contest/blob/main/Documentation/FAQ.md> have not been corrected in the benchmark in time. Here, we provide the scripts to correct this bug:
+~~~
+cd scripts/data_correction
+bash replace.sh
+~~~
+
 # Vivado Environment
 If you want to check the routability of the macro placement solution, you are required to install the Vivado ML 2021.1, the link of downloading the Vivado is:
 

@@ -57,7 +57,10 @@ run('cp -u -R {} {}'.format(run_files, args.run_dir))
 # make
 for target in build_targets:
     run('cmake --build {} --target {} -j {}'.format(args.build_dir,
-                                                    target, args.jobs))
+                                                   target, args.jobs))
+
+# build io_map
+run('g++ scripts/io_map.cxx -o scripts/io_map')
 cp_targets = build_targets
 for target in cp_targets:
     run('cp -f -u {}/{} {}'.format(args.build_dir, target, args.run_dir))
