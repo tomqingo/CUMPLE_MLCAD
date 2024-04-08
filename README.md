@@ -107,6 +107,20 @@ python3 statistics.py version_1
 * Boost (version >= 1.58)
 * Python (version 3, optional, for using scripts, also pyjson5 is required)
 
+### References
+If you would like to use our FPGA macro placer under the design constraints, please cite our DOI as:
+[![DOI](https://zenodo.org/badge/761311317.svg)](https://zenodo.org/doi/10.5281/zenodo.10929465)
+Or cite our published FCCM paper as:
+~~~
+@inproceedings{Cumple-v1.0,
+  title={A Routability-Driven Ultrascale FPGA Macro Placer with Complex Design Constraints},
+  author={Qin Luo, Xinshi Zang, Qijing Wang, Fangzhou Wang, Evangeline F.Y. Young, Martin D.F. Wong},
+  booktitle={2024 IEEE 32nd Annual International Symposium on Field-Programmable Custom Computing Machines (FCCM)},
+  year={2024},
+  organization={IEEE}
+}
+~~~
+
 ### Acknowledge
 
 In the end, we are sincerely grateful to Tingyuan Liang for his great work of AMFPlacers, an open-sourced Mixed Size FPGA placers (<https://github.com/zslwyuan/AMF-Placer>), and we have learned a lot from it.
