@@ -89,7 +89,7 @@ bash run_all.sh <parallel_num> <start_id> <end_id> <log_dir>
 ~~~
 For example, if we want to run all the cases with 5 cases in parallel, then
 ~~~
-bash run_all.sh 5 0 140 version_1
+bash run_all.sh 5 0 70 version_1
 ~~~
 **Step 3:** Calculate the congestion scores with statistics.py scripts
 ~~~
