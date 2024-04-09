@@ -89,13 +89,13 @@ bash run_all.sh <parallel_num> <start_id> <end_id> <log_dir>
 ~~~
 For example, if we want to run all the cases with 5 cases in parallel, then
 ~~~
-bash run_all.sh 5 0 140 version_1
+bash run_all.sh 5 0 70 version_1
 ~~~
-**Step 3:** Calculate the congestion scores with statistics.py scripts
+**Step 3:** Calculate the congestion scores and the PnR time information with statistics.py scripts
 ~~~
 python3 statistics.py <log_dir>
 ~~~
-For example, if we want to obtain the congestion scores in version_1, then
+For example, if we want to obtain the congestion scores and the PnR time information in version_1, then
 ~~~
 python3 statistics.py version_1
 ~~~
