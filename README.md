@@ -100,6 +100,19 @@ For example, if we want to obtain the congestion scores and the PnR time informa
 python3 statistics.py version_1
 ~~~
 
+### Baseline Reproduction
+There are two comparable baselines, Vivado ML 2021.1 and DreamPlaceFPGA-MP. Here we provide the scripts for reproducing the results in Vivado ML 2021.1 with:
+~~~
+$ python3 run_vivado.py <case> --benchmark_path <bencmark_path> --log_dir <path_log>
+~~~
+If we would like to run the all cases, then we use:
+~~~
+bash run_all_vivado.sh 5 0 70 version_vivado_1
+~~~
+
+For the DreamplaceFPGAMP, please refer to:
+<https://github.com/zhilix/DREAMPlaceFPGA-MP>
+
 ### Dependencies
 
 * g++ (version >= 5.4.0) or other working c++ compliers
