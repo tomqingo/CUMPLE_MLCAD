@@ -1,0 +1,3 @@
+[submodule "DreamplaceFPGAMP"]
+	path = DreamplaceFPGAMP
+	url = https://github.com/zhilix/DREAMPlaceFPGA-MP.git

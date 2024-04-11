@@ -113,6 +113,8 @@ bash run_all_vivado.sh 5 0 70 version_vivado_1
 For the DreamplaceFPGAMP, please refer to:
 <https://github.com/zhilix/DREAMPlaceFPGA-MP>
 
+We also have added the DreamplaceFPGAMP in the .submodule, you could refer to the Readme.md in DreamplaceFPGAMP to reproduce the results.
+
 ### Dependencies
 
 * g++ (version >= 5.4.0) or other working c++ compliers
