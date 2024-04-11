@@ -100,7 +100,7 @@ For example, if we want to obtain the congestion scores and the PnR time informa
 python3 statistics.py version_1
 ~~~
 
-### Baseline Reproduction
+# Baseline Reproduction
 There are two comparable baselines, Vivado ML 2021.1 and DreamPlaceFPGA-MP. Here we provide the scripts for reproducing the results in Vivado ML 2021.1 with:
 ~~~
 $ python3 run_vivado.py <case> --benchmark_path <bencmark_path> --log_dir <path_log>
