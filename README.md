@@ -113,7 +113,16 @@ bash run_all_vivado.sh 5 0 70 version_vivado_1
 For the DreamplaceFPGAMP, please refer to:
 <https://github.com/zhilix/DREAMPlaceFPGA-MP>
 
-We also have added the DreamplaceFPGAMP in the .submodule, you could refer to the Readme.md in DreamplaceFPGAMP to reproduce the results.
+We also have added the DreamplaceFPGAMP in the .submodule, you could refer to the Readme.md in DreamplaceFPGAMP to reproduce the results. If you want to run all the cases, you could use run_all_DreamplaceFPGAMP.sh in scripts folder like:
+~~~
+mv scripts/run_mlcad_all.sh DreamplaceFPGAMP/
+source <path_to_root_dir>/run_mlcad_all.sh <path_to_root_dir> <benchmark_path> <log_dir> <start_id> <end_id> <gpu_flag>
+~~~
+like we want to run CPU version, we could run as:
+~~~
+mv scripts/run_mlcad_all.sh DreamplaceFPGAMP/
+source ~/Downloads/CUMPLE_MLCAD/DREAMPlaceFPGA-MP/run_mlcad_all.sh ~/Downloads/CUMPLE_MLCAD/DREAMPlaceFPGA-MP/ ~/Downloads/CUMPLE_MLCAD/benchmarks/mlcad2023_v2/ ~/Downloads/CUMPLE_MLCAD/DREAMPlaceFPGA-MP/dreamfpgalog/ 0 70 0
+~~~
 
 ### Dependencies
 
