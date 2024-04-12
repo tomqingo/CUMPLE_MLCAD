@@ -113,15 +113,37 @@ bash run_all_vivado.sh 5 0 70 version_vivado_1
 For the DreamplaceFPGAMP, please refer to:
 <https://github.com/zhilix/DREAMPlaceFPGA-MP>
 
-We also have added the DreamplaceFPGAMP in the .submodule, you could refer to the Readme.md in DreamplaceFPGAMP to reproduce the results. If you want to run all the cases, you could use run_all_DreamplaceFPGAMP.sh in scripts folder like:
+We also have added the DreamplaceFPGAMP in the .submodule, you could refer to the Readme.md in DreamplaceFPGAMP to reproduce the results.
+
+Firstly, you need to build and run the docker for DreamplaceFPGAMP, that is:
 ~~~
-mv scripts/run_mlcad_all.sh DreamplaceFPGAMP/
+mv scripts/run_all_DreamplaceFPGAMP.sh DreamplaceFPGAMP/
+cd DreamplaceFPGAMP/
+docker build . --file Dockerfile --tag utda_macro_placer/dreamplace_fpga:1.0
+docker run -it -v $(pwd):/DREAMPlaceFPGA-MP -v /data/ssd/qluo/benchmark/mlcad2023_v2/:/Designs utda_macro_placer/dreamplace_fpga:1.0 bash
+~~~
+
+Here we need to change "/data/ssd/qluo/benchmark/mlcad2023_v2/" with the path to the mlcad2023 benchmark.
+
+Then Go to the `DREAMPlaceFPGA-MP` directory in the Docker and install the package
+~~~
+cd /DREAMPlaceFPGA-MP
+rm -rf build
+mkdir build 
+cd build 
+cmake .. -DCMAKE_INSTALL_PREFIX=/DREAMPlaceFPGA-MP -DPYTHON_EXECUTABLE=$(which python)
+make
+make install
+~~~
+
+Then if you want to run all the cases, you could use run_all_DreamplaceFPGAMP.sh in scripts folder like:
+~~~
 source <path_to_root_dir>/run_mlcad_all.sh <path_to_root_dir> <benchmark_path> <log_dir> <start_id> <end_id> <gpu_flag>
 ~~~
+
 like we want to run CPU version, we could run as:
 ~~~
-mv scripts/run_mlcad_all.sh DreamplaceFPGAMP/
-source ~/Downloads/CUMPLE_MLCAD/DREAMPlaceFPGA-MP/run_mlcad_all.sh ~/Downloads/CUMPLE_MLCAD/DREAMPlaceFPGA-MP/ ~/Downloads/CUMPLE_MLCAD/benchmarks/mlcad2023_v2/ ~/Downloads/CUMPLE_MLCAD/DREAMPlaceFPGA-MP/dreamfpgalog/ 0 70 0
+source /DREAMPlaceFPGA-MP/run_mlcad_all.sh /DREAMPlaceFPGA-MP/ /Designs/ /DREAMPlaceFPGA-MP/dreamfpgalog/ 0 70 0
 ~~~
 
 ### Dependencies
