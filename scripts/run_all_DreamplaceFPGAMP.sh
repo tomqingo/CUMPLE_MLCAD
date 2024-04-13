@@ -103,12 +103,12 @@ cat > ${DREAMPlaceFPGA_benchmark}/Design_$design/design.json <<EOF
     "dtype" : "float32",
     "num_threads" : 40,
     "deterministic_flag" : 1,
-    "run_dir" : "${DREAMPlaceFPGA_rundir}/Design_$design"
+    "run_dir" : "${DREAMPlaceFPGA_rundir}/d$design"
 }
 EOF
 
 #run the design
-python3 ${DREAMPlaceFPGA_dir}/dreamplacefpga/Placer.py ${DREAMPlaceFPGA_benchmark}/Design_$design/design.json > ${DREAMPlaceFPGA_rundir}/Design_$design/log.txt
+python3 ${DREAMPlaceFPGA_dir}/dreamplacefpga/Placer.py ${DREAMPlaceFPGA_benchmark}/Design_$design/design.json > ${DREAMPlaceFPGA_rundir}/d$design/log.txt
 
 done
 

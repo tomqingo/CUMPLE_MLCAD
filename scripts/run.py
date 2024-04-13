@@ -136,6 +136,7 @@ for bm in bms:
 
     if args.flow == "all" or args.flow == "vivado":
         # clear existing vivado log
+        run_convert(conf['designPath'], bm_log_dir)
         cmd = "rm {}/vivado*".format(bm_log_dir)
         run(cmd)
         # run amf
