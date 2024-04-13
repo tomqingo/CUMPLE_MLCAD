@@ -122,7 +122,7 @@ cp scripts/PlaceDB.py DreamplaceFPGAMP/dreamplacefpga/
 
 Then, you need to build and run the docker for DreamplaceFPGAMP, that is:
 ~~~
-mv scripts/run_all_DreamplaceFPGAMP.sh DreamplaceFPGAMP/
+cp scripts/run_all_DreamplaceFPGAMP.sh DreamplaceFPGAMP/
 cd DreamplaceFPGAMP/
 docker build . --file Dockerfile --tag utda_macro_placer/dreamplace_fpga:1.0
 docker run -it -v $(pwd):/DREAMPlaceFPGA-MP -v /data/ssd/qluo/benchmark/mlcad2023_v2/:/Designs utda_macro_placer/dreamplace_fpga:1.0 bash
