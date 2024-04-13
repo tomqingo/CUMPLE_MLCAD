@@ -101,7 +101,7 @@ cat > ${DREAMPlaceFPGA_benchmark}/Design_$design/design.json <<EOF
     "scale_factor" : 1.0,
     "global_place_flag" : 1,
     "dtype" : "float32",
-    "num_threads" : 40,
+    "num_threads" : 8,
     "deterministic_flag" : 1,
     "run_dir" : "${DREAMPlaceFPGA_rundir}/d$design"
 }
