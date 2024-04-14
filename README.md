@@ -159,8 +159,7 @@ cd run
 bash run_DreamplaceFPGA_vivado.sh 5 0 70 dreamfpgalog
 ~~~
 
-
-### Dependencies
+# Dependencies
 
 * g++ (version >= 5.4.0) or other working c++ compliers
 * CMake (version >= 3.5.1)

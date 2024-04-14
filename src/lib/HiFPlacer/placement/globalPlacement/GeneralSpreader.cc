@@ -353,7 +353,7 @@ void GeneralSpreader::updatePlacementUnitsWithSpreadedCellLocationsWorker(
             {
                 makeCellInLegalArea(placementInfo, cellLoc[curCell->getCellId()].X, cellLoc[curCell->getCellId()].Y);
                 curPU->setSpreadLocation(cellLoc[curCell->getCellId()].X, cellLoc[curCell->getCellId()].Y, forgetRatio);
-                //curPU->setSpreadLocationv2(cellLoc[curCell->getCellId()].X, cellLoc[curCell->getCellId()].Y, forgetRatio);
+                //curPU->setSpreadLocation(cellLoc[curCell->getCellId()].X, cellLoc[curCell->getCellId()].Y, forgetRatio);
                 placementInfo->transferCellBinInfo(curCell->getCellId(), curPU->X(), curPU->Y());
                 cellLoc[curCell->getCellId()].X = curPU->X();
                 cellLoc[curCell->getCellId()].Y = curPU->Y();
@@ -406,7 +406,7 @@ void GeneralSpreader::updatePlacementUnitsWithSpreadedCellLocationsWorker(
                 float curNewPUY = tmpTotalY;
                 placementInfo->legalizeXYInArea(curPU, curNewPUX, curNewPUY);
                 curPU->setSpreadLocation(curNewPUX, curNewPUY, forgetRatio);
-                //curPU->setSpreadLocationv2(curNewPUX, curNewPUY, forgetRatio);
+                //curPU->setSpreadLocation(curNewPUX, curNewPUY, forgetRatio);
                 placementInfo->enforceLegalizeXYInArea(curPU);
                 for (int vId = 0; vId < curMacro->getNumOfCells(); vId++)
                 {
@@ -483,7 +483,7 @@ void GeneralSpreader::updatePlacementUnitsWithSpreadedCellLocations(
                                         cellLoc[curCell->getCellId()].Y);
                     //curPU->setSpreadLocation(cellLoc[curCell->getCellId()].X, cellLoc[curCell->getCellId()].Y,
                     //                         forgetRatio);
-                    curPU->setSpreadLocationv2(cellLoc[curCell->getCellId()].X, cellLoc[curCell->getCellId()].Y, forgetRatio);
+                    curPU->setSpreadLocation(cellLoc[curCell->getCellId()].X, cellLoc[curCell->getCellId()].Y, forgetRatio);
                     placementInfo->transferCellBinInfo(curCell->getCellId(), curPU->X(), curPU->Y());
                     cellLoc[curCell->getCellId()].X = curPU->X();
                     cellLoc[curCell->getCellId()].Y = curPU->Y();
@@ -535,7 +535,7 @@ void GeneralSpreader::updatePlacementUnitsWithSpreadedCellLocations(
                     float curNewPUY = tmpTotalY;
                     placementInfo->legalizeXYInArea(curPU, curNewPUX, curNewPUY);
                     //curPU->setSpreadLocation(curNewPUX, curNewPUY, forgetRatio);
-                    curPU->setSpreadLocationv2(curNewPUX, curNewPUY, forgetRatio);
+                    curPU->setSpreadLocation(curNewPUX, curNewPUY, forgetRatio);
                     placementInfo->enforceLegalizeXYInArea(curPU);
                     for (int vId = 0; vId < curMacro->getNumOfCells(); vId++)
                     {

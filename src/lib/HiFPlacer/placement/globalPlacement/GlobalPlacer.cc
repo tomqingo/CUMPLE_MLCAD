@@ -276,7 +276,7 @@ void GlobalPlacer::GlobalPlacement_fixedCLB(int iterNum, float pseudoNetWeight)
     WLOptimizer->reloadPlacementInfo();
 
     // dumpCoord();
-    int lowerBoundIterNum = 1;
+    int lowerBoundIterNum = 6;
     for (auto curCell : placementInfo->getCells())
     {
         if (!curCell->isLUT() && !curCell->isFF())
@@ -411,8 +411,8 @@ void GlobalPlacer::macroLegalize(int curIteration)
     // if ((BRAMDSPLegalizer->getAverageDisplacementOfRoughLegalization() > 5 && progressRatio < 0.9 &&
     //      curIteration < 10) &&
     //     !macroLocked && !macrosBindedToSites && !directMacroLegalize)
-    if ((BRAMDSPLegalizer->getAverageDisplacementOfRoughLegalization() > 10 && progressRatio < 0.9 &&
-         curIteration < 5) &&
+    if ((BRAMDSPLegalizer->getAverageDisplacementOfRoughLegalization() > 5 && progressRatio < 0.9 &&
+         curIteration < 10) &&
         !macroLocked && !macrosBindedToSites && !directMacroLegalize)
     {
         averageMacroLegalDisplacement = BRAMDSPLegalizer->getAverageDisplacementOfRoughLegalization();
@@ -452,8 +452,8 @@ void GlobalPlacer::macroLegalize(int curIteration)
         {
             // if (curIteration >= 10 && averageMacroLegalDisplacement < 7.5 && averageMCLBLegalDisplacement < 7.5 &&
             //     averageCarryLegalDisplacement < 7.5)
-            if (curIteration >= 5 && averageMacroLegalDisplacement < 13.5 && averageMCLBLegalDisplacement < 13.5 &&
-                averageCarryLegalDisplacement < 13.5)
+            if (curIteration >= 10 && averageMacroLegalDisplacement < 7.5 && averageMCLBLegalDisplacement < 7.5 &&
+                averageCarryLegalDisplacement < 7.5)
             {
                 print_warning("too many times of legalization. enforce the elements to be fixed!");
                 macroCloseToSite = true;
