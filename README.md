@@ -74,7 +74,7 @@ options:
 $ cd CUMPLE_MLCAD
 $ ./scripts/build.py -o release
 ~~~
-**Step 2:** Run the designs by
+**Step 2:** Compile the io_map.cxx file by:
 ~~~
 $ cd scripts
 $ g++ io_map.cxx -o io_map
