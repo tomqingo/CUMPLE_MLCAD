@@ -76,7 +76,13 @@ $ ./scripts/build.py -o release
 ~~~
 **Step 2:** Run the designs by
 ~~~
-$ cd run
+$ cd scripts
+$ g++ io_map.cxx -o io_map
+$ cp io_map ../run
+$ cd ../run
+~~~
+Then we could run by:
+~~~
 $ python3 run.py <case> --benchmark_path <bencmark_path> --flow <flow> --log_dir <path_log>
 ~~~
 For example, if we want to run Design_2 with the overall place and route flow, then
