@@ -155,6 +155,7 @@ The log file and the macroplacement.pl are all in the /DREAMPlaceFPGA-MP/dreamfp
 ~~~
 cd ..
 cp -r DreamplaceFPGAMP/dreamfpgalog run/
+cp scripts/run_DreamplaceFPGA_vivado.sh run/
 cd run
 bash run_DreamplaceFPGA_vivado.sh 5 0 70 dreamfpgalog
 ~~~
