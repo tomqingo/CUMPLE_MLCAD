@@ -15,7 +15,9 @@ parser.add_argument('-p', '--benchmark_path', default='../benchmarks/mlcad2023_v
 parser.add_argument('-f', '--flow', default='cumple', choices=['cumple', 'convert', 'vivado', 'all'])
 parser.add_argument('-l', '--log_dir')
 parser.add_argument('-s', '--spread_iter', default="5", type=str)
-parser.add_argument('-c', '--cellinflation', default="True", type=str)
+parser.add_argument('-g', '--gp2region', default="true", type=str)
+parser.add_argument('--addpseudo', default="true", type=str)
+parser.add_argument('--uselookahead', default="true", type=str)
 
 args = parser.parse_args()
 
@@ -116,7 +118,9 @@ for bm in bms:
     conf['designPath'] = bm_path + bm.full_name
     conf['logPath'] = bm_log_dir
     conf['SpreaderInnerIter'] = args.spread_iter
-    conf['Cellinflation'] = args.cellinflation
+    conf["useMacroSizePseudoNet"] = args.addpseudo
+    conf["gp2region"] = args.gp2region
+    conf["useLookaheadTech"] = args.uselookahead
 
     # store json
     # with open(os.path.join(bm_log_dir, "mlcad.json"), 'w') as f:
@@ -126,7 +130,7 @@ for bm in bms:
     if args.flow == "all" or args.flow == "cumple":
         # run amf
         # cmd = './Cumple {0}/mlcad.json | tee {0}/run.log'.format(bm_log_dir)
-        cmd = './Cumple {0} {1} {2} | tee {1}/run.log'.format(bm_path + bm.full_name, bm_log_dir, args.cellinflation)
+        cmd = './Cumple {0} {1} {2} {3} {4} | tee {1}/run.log'.format(bm_path + bm.full_name, bm_log_dir, args.addpseudo, args.gp2region, args.uselookahead)
         run(cmd)
         # run convert
         run_convert(conf['designPath'], bm_log_dir)

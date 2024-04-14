@@ -171,6 +171,8 @@ class PlacementInfo
 
         std::map<std::string, std::string> BELName2sharedCellType;
 
+        bool useLookaheadTech;
+
         /**
          * @brief Get the Potential BEL Type IDs for a specific cell object
          *
@@ -4414,6 +4416,8 @@ class PlacementInfo
             PU->recordWLminLocation();
     }
 
+    std::map<std::string, std::string> &JSONCfg;
+
   private:
     CompatiblePlacementTable *compatiblePlacementTable = nullptr;
     std::vector<PlacementUnit *> placementUnits;
@@ -4429,6 +4433,7 @@ class PlacementInfo
     DesignInfo *designInfo;
     DeviceInfo *deviceInfo;
     PlacementTimingInfo *simplePlacementTimingInfo = nullptr;
+    bool useLookaheadTech = true;
     /**
      * @brief a mapping from PlaceuementUnit objects to legalized locations
      *
@@ -4563,7 +4568,6 @@ class PlacementInfo
      */
     float placementProressRatio = 0.01;
 
-    std::map<std::string, std::string> &JSONCfg;
     std::string cellType2fixedAmoFileName;
     std::string cellType2sharedCellTypeFileName;
     std::string sharedCellType2BELtypeFileName;

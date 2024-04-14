@@ -114,6 +114,7 @@ class WirelengthOptimizer
     bool directMacroLegalize = false;
     float oriMacroLegalizationWeight = 1.0;
     float userDefinedClusterFadeOutFactor = 1.0;
+    bool useMacroSizePseudoNet = true;
 
     int macroPseudoNetCnt = 0;
 };

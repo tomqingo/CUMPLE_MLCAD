@@ -33,6 +33,11 @@ PlacementInfo::PlacementInfo(DesignInfo *designInfo, DeviceInfo *deviceInfo,
         y2xRatio = std::stof(JSONCfg["y2xRatio"]);
     }
 
+    if (JSONCfg.find("useLookaheadTech") != JSONCfg.end())
+    {
+        useLookaheadTech = JSONCfg["useLookaheadTech"] == "true";
+    }
+
     print_status("Loading compatiblePlacementTable");
     compatiblePlacementTable = loadCompatiblePlacementTable(cellType2fixedAmoFileName, cellType2sharedCellTypeFileName,
                                                             sharedCellType2BELtypeFileName);
@@ -77,6 +82,11 @@ PlacementInfo::CompatiblePlacementTable::CompatiblePlacementTable(std::string ce
     {
         realBELTypeName2ID[*typeIt] = realBELTypes.size();
         realBELTypes.push_back(*typeIt);
+    }
+
+    if(designInfo->JSONCfg.find("useLookaheadTech") != designInfo->JSONCfg.end())
+    {
+        useLookaheadTech = designInfo->JSONCfg["useLookaheadTech"] == "true";
     }
 
     // load cell occupation of BELs
@@ -274,7 +284,7 @@ void PlacementInfo::CompatiblePlacementTable::setBELTypeForCells(DesignInfo *des
         }
 
         // look ahead considerations
-        if(cell->getRegionConstrType()!=-1)
+        if(useLookaheadTech && cell->getRegionConstrType()!=-1)
         {
             int regionconstrType = cell->getRegionConstrType();
             std::string sharedBELType = cellType2sharedBELTypes[cell->getCellType()][0];

@@ -32,6 +32,11 @@ MacroLegalizer::MacroLegalizer(std::string legalizerName, PlacementInfo *placeme
     {
         nJobs = std::stoi(JSONCfg["jobs"]);
     }
+
+    if (JSONCfg.find("useLookaheadTech") != JSONCfg.end())
+    {
+        useLookaheadTech = JSONCfg["useLookaheadTech"] == "true";
+    }
 }
 
 void MacroLegalizer::legalize(bool is_cascade_flag, bool is_region_constr_flag, bool exactLegalization, bool directLegalization)
@@ -748,14 +753,17 @@ void MacroLegalizer::createBipartiteGraph(bool is_fixed_column_legalize)
 
                     // look ahead technique
 
-                    for(auto regionconstr : placementInfo->getDesignInfo()->GetRegionConstraintAll())
+                    if (useLookaheadTech)
                     {
-                        if(regionconstr->IsinRegionConstraint(locX, locY, left_right_slack, up_down_slack))
+                        for(auto regionconstr : placementInfo->getDesignInfo()->GetRegionConstraintAll())
                         {
-                            std::string sharedBELType = compatiblePlacementTable->cellType2sharedBELTypes[curCell->getCellType()][0];
-                            //int celloccupation = compatiblePlacementTable->cellType2sharedBELTypeOccupation[curCell->getCellType()];
-                            if(regionconstr->CheckIsFull(sharedBELType, 0.9))
-                                flag_overflow = true;
+                            if(regionconstr->IsinRegionConstraint(locX, locY, left_right_slack, up_down_slack))
+                            {
+                                std::string sharedBELType = compatiblePlacementTable->cellType2sharedBELTypes[curCell->getCellType()][0];
+                                //int celloccupation = compatiblePlacementTable->cellType2sharedBELTypeOccupation[curCell->getCellType()];
+                                if(regionconstr->CheckIsFull(sharedBELType, 0.9))
+                                    flag_overflow = true;
+                            }
                         }
                     }
                 }
@@ -837,33 +845,36 @@ void MacroLegalizer::updateMatchingAndUnmatchedMacroCells(int iter)
             //int curCell_regionconstrid = curCell->getRegionConstrType();
             bool flag_overflow = false;
             // look ahead technique
-            for(auto regionconstr : placementInfo->getDesignInfo()->GetRegionConstraintAll())
+            if (useLookaheadTech)
             {
-                if(regionconstr->IsinRegionConstraint(locX, locY, left_right_slack, up_down_slack))
+                for(auto regionconstr : placementInfo->getDesignInfo()->GetRegionConstraintAll())
                 {
-                    std::string sharedBELType = compatiblePlacementTable->cellType2sharedBELTypes[curCell->getCellType()][0];
-                    if(curCell->isInCascadeMacro())
+                    if(regionconstr->IsinRegionConstraint(locX, locY, left_right_slack, up_down_slack))
                     {
+                        std::string sharedBELType = compatiblePlacementTable->cellType2sharedBELTypes[curCell->getCellType()][0];
+                        if(curCell->isInCascadeMacro())
+                        {
                         //int celloccupation = compatiblePlacementTable->cellType2sharedBELTypeOccupation[curCell->getCellType()];
                         
                         if(regionconstr->CheckIsFull(sharedBELType, 0.9))
                             flag_overflow = true;
-                    }
-                    else
-                    {
-                        if(curCell->hasRegionConstraint() && (!regionconstr->hasRegionConstrainedCell(curCell)))
+                        }
+                        else
                         {
-                            if(iter < 3)
+                            if(curCell->hasRegionConstraint() && (!regionconstr->hasRegionConstrainedCell(curCell)))
                             {
-                                if(regionconstr->CheckIsFull(sharedBELType, 0.9))
-                                    flag_overflow = true;
-                            }
-                            else
-                            {
-                                if(regionconstr->CheckIsFull(sharedBELType, 1.0))
-                                    flag_overflow = true;
-                            }
+                                if(iter < 3)
+                                {
+                                    if(regionconstr->CheckIsFull(sharedBELType, 0.9))
+                                        flag_overflow = true;
+                                }
+                                else
+                                {
+                                    if(regionconstr->CheckIsFull(sharedBELType, 1.0))
+                                        flag_overflow = true;
+                                }
 
+                            }
                         }
                     }
                 }

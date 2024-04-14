@@ -34,6 +34,21 @@ GlobalPlacer::GlobalPlacer(PlacementInfo *placementInfo, std::map<std::string, s
         dumpClockUtilization = JSONCfg["DumpClockUtilization"] == "true";
     }
 
+    if (JSONCfg.find("GP2Region") != JSONCfg.end())
+    {
+        GP2Region = JSONCfg["GP2Region"] == "true";
+    }
+
+    if (JSONCfg.find("useMacroSizePseudoNet") != JSONCfg.end())
+    {
+        useMacroSizePseudoNet = JSONCfg["useMacroSizePseudoNet"] == "true";
+    }
+
+    if (JSONCfg.find("useLookaheadTech") != JSONCfg.end())
+    {
+        useLookaheadTech = JSONCfg["useLookaheadTech"] == "true";
+    }
+
     clusterPlacer = new ClusterPlacer(placementInfo, JSONCfg, 10.0);
     WLOptimizer = new WirelengthOptimizer(placementInfo, JSONCfg, verbose);
 

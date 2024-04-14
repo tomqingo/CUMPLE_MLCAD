@@ -1949,6 +1949,8 @@ class DesignInfo
 
     void readRegionConstr(std::string regionconstrFile);
 
+    std::map<std::string, std::string> &JSONCfg;
+
   private:
     std::vector<DesignNet *> netlist;
     std::vector<DesignCell *> cells;
@@ -2001,8 +2003,6 @@ class DesignInfo
      *
      */
     std::map<DesignNet *, std::set<DesignCell *>> clock2Cells;
-
-    std::map<std::string, std::string> &JSONCfg;
     std::string designArchievedTextFileName;
 };
 

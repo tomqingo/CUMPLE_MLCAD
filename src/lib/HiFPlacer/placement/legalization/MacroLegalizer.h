@@ -100,6 +100,7 @@ class MacroLegalizer
     PlacementInfo::CompatiblePlacementTable *compatiblePlacementTable;
     std::vector<DesignInfo::DesignCellType> macroTypesToLegalize;
     std::vector<PlacementInfo::Location> &cellLoc;
+    bool useLookaheadTech;
 
     std::map<std::string, std::string> &JSONCfg;
 

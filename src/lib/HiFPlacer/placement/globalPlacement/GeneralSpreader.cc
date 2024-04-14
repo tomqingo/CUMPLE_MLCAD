@@ -25,6 +25,11 @@ GeneralSpreader::GeneralSpreader(PlacementInfo *placementInfo, std::map<std::str
     {
         innerloopiter = std::stoi(JSONCfg["SpreaderInnerIter"]);
     }
+
+    if (JSONCfg.find("GP2Region") != JSONCfg.end())
+    {
+        GP2Region = JSONCfg["GP2Region"] == "true";
+    }
 }
 
 void GeneralSpreader::spreadPlacementUnits(float forgetRatio)
@@ -698,7 +703,9 @@ void GeneralSpreader::SpreadRegion::SubBox::spreadAndPartition()
 void GeneralSpreader::SpreadRegion::SubBox::spreadCellsH(SubBox **boxA, SubBox **boxB)
 {
     // refer to paper of POLAR and RippleFPGA
-    bool GP2Region = true;
+    // bool GP2Region = true;
+    // std::cout<<GP2Region<<std::endl;
+    // GP2Region = true;
 
     if (cellIds.size() == 0)
         return;
@@ -965,7 +972,9 @@ void GeneralSpreader::SpreadRegion::SubBox::spreadCellsH(SubBox **boxA, SubBox *
 void GeneralSpreader::SpreadRegion::SubBox::spreadCellsV(SubBox **boxA, SubBox **boxB)
 {
     // refer to paper of POLAR and RippleFPGA
-    bool GP2Region = true;
+    // bool GP2Region = true;
+    // std::cout<<GP2Region<<std::endl;
+    // GP2Region = true;
     if (cellIds.size() == 0)
         return;
 

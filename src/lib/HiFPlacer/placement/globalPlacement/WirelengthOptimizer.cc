@@ -17,6 +17,8 @@ WirelengthOptimizer::WirelengthOptimizer(PlacementInfo *placementInfo, std::map<
     }
     if (JSONCfg.find("y2xRatio") != JSONCfg.end())
         y2xRatio = std::stof(JSONCfg["y2xRatio"]);
+    if (JSONCfg.find("useMacroSizePseudoNet") != JSONCfg.end())
+        useMacroSizePseudoNet = JSONCfg["useMacroSizePseudoNet"] == "true";
     float leftBound = placementInfo->getGlobalMinX() - 0.5;
     float rightBound = placementInfo->getGlobalMaxX() + 0.5;
     float bottomBound = placementInfo->getGlobalMinY() - 0.5;
@@ -255,16 +257,20 @@ void WirelengthOptimizer::addPseudoNetForMacros(float pesudoNetWeight, bool cons
                     macroPseudoNetFactor * pesudoNetWeight * pairPUX.first->getNetsSetPtr()->size() / 5, y2xRatio, true,
                     false); // CARRY-CHAIN-like element
             else
-                placementInfo->addPseudoNetsInPlacementInfo(
-                    xSolver->solverData.objectiveMatrixTripletList, xSolver->solverData.objectiveMatrixDiag,
-                    xSolver->solverData.objectiveVector, pairPUX.first, pairPUX.second,
-                    macroPseudoNetFactor * pesudoNetWeight * pairPUX.first->getNetsSetPtr()->size(), y2xRatio, true,
-                    false); // DSP-BRAM-like element
-                // placementInfo->addPseudoNetsInPlacementInfo(
-                //     xSolver->solverData.objectiveMatrixTripletList, xSolver->solverData.objectiveMatrixDiag,
-                //     xSolver->solverData.objectiveVector, pairPUX.first, pairPUX.second,
-                //     macroPseudoNetFactor * pesudoNetWeight, y2xRatio, true,
-                //     false); // DSP-BRAM-like element
+            {
+                if (useMacroSizePseudoNet)
+                    placementInfo->addPseudoNetsInPlacementInfo(
+                        xSolver->solverData.objectiveMatrixTripletList, xSolver->solverData.objectiveMatrixDiag,
+                        xSolver->solverData.objectiveVector, pairPUX.first, pairPUX.second,
+                        macroPseudoNetFactor * pesudoNetWeight * pairPUX.first->getNetsSetPtr()->size(), y2xRatio, true,
+                        false); // DSP-BRAM-like element
+                else
+                    placementInfo->addPseudoNetsInPlacementInfo(
+                        xSolver->solverData.objectiveMatrixTripletList, xSolver->solverData.objectiveMatrixDiag,
+                        xSolver->solverData.objectiveVector, pairPUX.first, pairPUX.second,
+                        macroPseudoNetFactor * pesudoNetWeight, y2xRatio, true,
+                        false); // DSP-BRAM-like element
+            }
         }
         
         for (auto pairPUY : PUY)
@@ -282,16 +288,20 @@ void WirelengthOptimizer::addPseudoNetForMacros(float pesudoNetWeight, bool cons
                     macroPseudoNetFactor * pesudoNetWeight * pairPUY.first->getNetsSetPtr()->size() / 5, y2xRatio,
                     false, true); // CARRY-CHAIN-like element
             else
-                placementInfo->addPseudoNetsInPlacementInfo(
-                    ySolver->solverData.objectiveMatrixTripletList, ySolver->solverData.objectiveMatrixDiag,
-                    ySolver->solverData.objectiveVector, pairPUY.first, pairPUY.second,
-                    macroPseudoNetFactor * pesudoNetWeight * pairPUY.first->getNetsSetPtr()->size(), y2xRatio, false,
-                    true); // DSP-BRAM-like element
-                // placementInfo->addPseudoNetsInPlacementInfo(
-                //     ySolver->solverData.objectiveMatrixTripletList, ySolver->solverData.objectiveMatrixDiag,
-                //     ySolver->solverData.objectiveVector, pairPUY.first, pairPUY.second,
-                //     macroPseudoNetFactor * pesudoNetWeight, y2xRatio, false,
-                //     true); // DSP-BRAM-like element
+            {
+                if (useMacroSizePseudoNet)
+                    placementInfo->addPseudoNetsInPlacementInfo(
+                        ySolver->solverData.objectiveMatrixTripletList, ySolver->solverData.objectiveMatrixDiag,
+                        ySolver->solverData.objectiveVector, pairPUY.first, pairPUY.second,
+                        macroPseudoNetFactor * pesudoNetWeight * pairPUY.first->getNetsSetPtr()->size(), y2xRatio, false,
+                        true); // DSP-BRAM-like element
+                else
+                    placementInfo->addPseudoNetsInPlacementInfo(
+                        ySolver->solverData.objectiveMatrixTripletList, ySolver->solverData.objectiveMatrixDiag,
+                        ySolver->solverData.objectiveVector, pairPUY.first, pairPUY.second,
+                        macroPseudoNetFactor * pesudoNetWeight, y2xRatio, false,
+                        true); // DSP-BRAM-like element
+            }
         }
     }
     else
@@ -641,19 +651,19 @@ void WirelengthOptimizer::addPseudoNet2LoctionForAllPUs(float pesudoNetWeight, b
                     {
                         float curX = curPU->X();
                         float lastX = curPU->lastX();
-                        // if(curPU->checkHasBRAM() || curPU->checkHasDSP())
-                        //     placementInfo->addPseudoNetsInPlacementInfo(
-                        //     xSolver->solverData.objectiveMatrixTripletList, xSolver->solverData.objectiveMatrixDiag,
-                        //     xSolver->solverData.objectiveVector, curPU, curX,
-                        //     pesudoNetWeight / std::max(minDist, std::fabs(lastX - curX)),
-                        //     y2xRatio, true, false);
-                        // else
-                        placementInfo->addPseudoNetsInPlacementInfo(
-                            xSolver->solverData.objectiveMatrixTripletList, xSolver->solverData.objectiveMatrixDiag,
-                            xSolver->solverData.objectiveVector, curPU, curX,
-                            std::pow(curPU->getNetsSetPtr()->size(), powFactor) * pesudoNetWeight /
-                            std::max(minDist, std::fabs(lastX - curX)),
-                            y2xRatio, true, false);
+                        if((!useMacroSizePseudoNet) && (curPU->checkHasBRAM() || curPU->checkHasDSP()))
+                            placementInfo->addPseudoNetsInPlacementInfo(
+                                xSolver->solverData.objectiveMatrixTripletList, xSolver->solverData.objectiveMatrixDiag,
+                                xSolver->solverData.objectiveVector, curPU, curX,
+                                pesudoNetWeight / std::max(minDist, std::fabs(lastX - curX)),
+                                y2xRatio, true, false);
+                        else
+                            placementInfo->addPseudoNetsInPlacementInfo(
+                                xSolver->solverData.objectiveMatrixTripletList, xSolver->solverData.objectiveMatrixDiag,
+                                xSolver->solverData.objectiveVector, curPU, curX,
+                                std::pow(curPU->getNetsSetPtr()->size(), powFactor) * pesudoNetWeight /
+                                std::max(minDist, std::fabs(lastX - curX)),
+                                y2xRatio, true, false);
                     }
                 }
             }
@@ -668,12 +678,19 @@ void WirelengthOptimizer::addPseudoNet2LoctionForAllPUs(float pesudoNetWeight, b
                     {
                         float curY = curPU->Y();
                         float lastY = curPU->lastY();
-                        placementInfo->addPseudoNetsInPlacementInfo(
-                            ySolver->solverData.objectiveMatrixTripletList, ySolver->solverData.objectiveMatrixDiag,
-                            ySolver->solverData.objectiveVector, curPU, curY,
-                            std::pow(curPU->getNetsSetPtr()->size(), powFactor) * pesudoNetWeight /
-                                std::max(minDist, std::fabs(lastY - curY)),
-                            y2xRatio, false, true);
+                        if((!useMacroSizePseudoNet) && (curPU->checkHasBRAM() || curPU->checkHasDSP()))
+                            placementInfo->addPseudoNetsInPlacementInfo(
+                                ySolver->solverData.objectiveMatrixTripletList, ySolver->solverData.objectiveMatrixDiag,
+                                ySolver->solverData.objectiveVector, curPU, curY,
+                                pesudoNetWeight / std::max(minDist, std::fabs(lastY - curY)),
+                                y2xRatio, false, true);
+                        else
+                            placementInfo->addPseudoNetsInPlacementInfo(
+                                ySolver->solverData.objectiveMatrixTripletList, ySolver->solverData.objectiveMatrixDiag,
+                                ySolver->solverData.objectiveVector, curPU, curY,
+                                std::pow(curPU->getNetsSetPtr()->size(), powFactor) * pesudoNetWeight /
+                                    std::max(minDist, std::fabs(lastY - curY)),
+                                y2xRatio, false, true);
                     }
                 }
             }

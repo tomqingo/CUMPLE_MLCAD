@@ -159,6 +159,17 @@ cd run
 bash run_DreamplaceFPGA_vivado.sh 5 0 70 dreamfpgalog
 ~~~
 
+# Ablation Experiments
+To better demonstrate the effectiveness of introduced techniques, ablation experiments have been done as follows:
+For V1 (without macro-size aware pseudo nets), then:
+~~~
+bash run_all_nomacropseudo.sh 5 0 70 nomacropseudo
+~~~
+For V2 (without regional constraint guided spreading), then:
+~~~
+bash run_all_gp2region.sh 5 0 70 nogp2region
+~~~
+
 # Dependencies
 
 * g++ (version >= 5.4.0) or other working c++ compliers

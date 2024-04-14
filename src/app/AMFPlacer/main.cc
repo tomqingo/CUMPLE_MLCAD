@@ -13,14 +13,14 @@
 
 int main(int argc, const char **argv)
 {
-    if (argc < 4)
+    if (argc < 6)
     {
         std::cerr << "Usage: " << argv[0] << " <path to input folder> <path output ouput folder>" << std::endl;
         return 1;
     }
 
-	if (argc == 4) {
-    	auto placer = new AMFPlacer(argv[1], argv[2], argv[3]);
+	if (argc == 6) {
+    	auto placer = new AMFPlacer(argv[1], argv[2], argv[3], argv[4], argv[5]);
     	placer->run();
     	delete placer;
 	} 

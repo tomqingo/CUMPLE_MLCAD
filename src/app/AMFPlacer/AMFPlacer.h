@@ -101,11 +101,13 @@ class AMFPlacer
         // }
     };
 
-    AMFPlacer(std::string inputPath, std::string outputPath, std::string GP2Region)
+    AMFPlacer(std::string inputPath, std::string outputPath, std::string useMacroSizePseudoNet, std::string GP2Region, std::string useLookaheadTech)
     {
     	JSON["designPath"] = inputPath;
 		JSON["logPath"] = outputPath;
         JSON["GP2Region"] = GP2Region;
+        JSON["useMacroSizePseudoNet"] = useMacroSizePseudoNet;
+        JSON["useLookaheadTech"] = useLookaheadTech;
 
         JSON["randomseed"]= "100";
 		JSON["writePort"] = "false";
@@ -116,12 +118,12 @@ class AMFPlacer
         JSON["RandomInitialPlacement"] = "true";
         JSON["RegionInitialPlacement"] = "true";
         JSON["AddLUTFFFeedback"] = "true";
-        
+
     	JSON["DrawNetAfterEachIteration"] = "false";
         // adjust the weights of the pseudo nets
     	JSON["PseudoNetWeight"] = "0.0025";
     	JSON["GlobalPlacementIteration"] = "10";
-    	JSON["SpreaderInnerIter"] = "1";
+    	JSON["SpreaderInnerIter"] = "3";
     	JSON["clockRegionXNum"] = "5";
     	JSON["clockRegionYNum"] = "8";
     	JSON["clockRegionDSPNum"] = "30";
@@ -179,7 +181,9 @@ class AMFPlacer
 
         // go through several glable placement iterations to get initial placement
         globalPlacer = new GlobalPlacer(placementInfo, JSON);
-        std::cout<<"Cell Inflation Configure: "<<JSON["Cellinflation"]<<std::endl;
+        std::cout<<"Macro guided pseudo nets configure: "<<JSON["useMacroSizePseudoNet"]<<std::endl;
+        std::cout<<"GP2Region: "<<JSON["GP2Region"]<<std::endl;
+        std::cout<<"Look Ahead Technique: "<<JSON["useLookaheadTech"]<<std::endl;
 
         if (true)
         {

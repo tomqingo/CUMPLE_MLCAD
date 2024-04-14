@@ -184,6 +184,10 @@ class GlobalPlacer
     bool dumpOptTrace = false;
     float y2xRatio = 1.0;
 
+    bool GP2Region = true;
+    bool useMacroSizePseudoNet = true;
+    bool useLookaheadTech = true;
+
     /**
      * @brief set adaptive pseudo net weight according to net density
      *

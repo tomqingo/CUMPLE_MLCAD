@@ -848,6 +848,11 @@ class GeneralSpreader
                         {parentBox->cellIds.begin() + cellRangeBegin, parentBox->cellIds.begin() + cellRangeEnd + 1});
                 else
                     cellIds.clear();
+
+                if (placementInfo->JSONCfg.find("GP2Region") != placementInfo->JSONCfg.end())
+                {
+                    GP2Region = (placementInfo->JSONCfg["GP2Region"] == "true");
+                }
             }
 
             ~SubBox()
@@ -855,6 +860,7 @@ class GeneralSpreader
             }
 
             PlacementInfo *placementInfo;
+            bool GP2Region = true;
             std::vector<std::vector<PlacementInfo::PlacementBinInfo *>> &binGrid;
             float capacityShrinkRatio = 1.0;
 
@@ -1196,6 +1202,7 @@ class GeneralSpreader
     int innerloopiter = 10;
     float capacityShrinkRatio = 1.0;
     bool verbose = true;
+    bool GP2Region = true;
 
     /**
      * @brief a reference of the global bin grid for data accessing and updating of cell density
