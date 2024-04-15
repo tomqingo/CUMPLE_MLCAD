@@ -2,9 +2,19 @@
 
 import argparse
 import os
+import subprocess
+from packaging import version
 
 run_files = 'scripts/*'
 
+def get_cmake_version():
+    output = subprocess.check_output(['cmake', '--version']).decode('utf-8')
+    line = output.splitlines()[0]
+    version = line.split()[2]
+    return(version)
+
+if version.parse(get_cmake_version()) < version.parse("3.10.0"):
+    exit(1)
 
 def run(command):
     if args.print_commands:
