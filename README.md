@@ -189,13 +189,16 @@ If you would like to use our FPGA macro placer under the design constraints, ple
 [![DOI](https://zenodo.org/badge/761311317.svg)](https://zenodo.org/doi/10.5281/zenodo.10929465)
 Or cite our published FCCM paper as:
 ~~~
-@inproceedings{Cumple-v1.0,
-  title={A Routability-Driven Ultrascale FPGA Macro Placer with Complex Design Constraints},
-  author={Qin Luo, Xinshi Zang, Qijing Wang, Fangzhou Wang, Evangeline F.Y. Young, Martin D.F. Wong},
-  booktitle={2024 IEEE 32nd Annual International Symposium on Field-Programmable Custom Computing Machines (FCCM)},
+@INPROCEEDINGS{10653672,
+  author={Luo, Qin and Zang, Xinshi and Wang, Qijing and Wang, Fangzhou and Young, Evangeline F.Y. and Wong, Martin D.F.},
+  booktitle={2024 IEEE 32nd Annual International Symposium on Field-Programmable Custom Computing Machines (FCCM)}, 
+  title={A Routability-Driven Ultrascale FPGA Macro Placer with Complex Design Constraints}, 
   year={2024},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={1-7},
+  keywords={Benchmark testing;Routing;Field programmable gate arrays;Optimization;FPGA placement;Design constraints;Routability},
+  doi={10.1109/FCCM60383.2024.00024}}
 ~~~
 
 ### Acknowledge
